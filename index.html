@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SERP Competitor Analyzer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">
+                    <i class="fas fa-search"></i>
+                    SERP Analyzer
+                </h1>
+                <p class="tagline">Analyze your competitors' SERP rankings and discover winning strategies</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Step 1: Keyword Input -->
+            <section class="section" id="keyword-section">
+                <div class="section-header">
+                    <span class="step-number">1</span>
+                    <h2>Enter Target Keyword</h2>
+                </div>
+                <div class="keyword-input-container">
+                    <input 
+                        type="text" 
+                        id="keyword-input" 
+                        placeholder="e.g., best laptops 2024, digital marketing services"
+                        class="keyword-input"
+                    >
+                    <button class="btn btn-primary" onclick="setKeyword()">
+                        <i class="fas fa-arrow-right"></i>
+                        Continue
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 2: Competitor Input -->
+            <section class="section hidden" id="competitors-section">
+                <div class="section-header">
+                    <span class="step-number">2</span>
+                    <h2>Add Competitors</h2>
+                    <p class="section-subtitle">Enter the top 10 results from Google's first page</p>
+                </div>
+
+                <div class="competitors-container">
+                    <div class="competitor-form-container">
+                        <form class="competitor-form" id="competitor-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="position">Position</label>
+                                    <input type="number" id="position" min="1" max="10" value="1" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="domain">Domain</label>
+                                    <input type="text" id="domain" placeholder="example.com" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="url">Full URL</label>
+                                <input type="url" id="url" placeholder="https://example.com/page" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="title">Page Title</label>
+                                <input type="text" id="title" placeholder="Page title from search results">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="meta-description">Meta Description</label>
+                                <textarea id="meta-description" placeholder="Meta description from search results" rows="3"></textarea>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-secondary">
+                                    <i class="fas fa-plus"></i>
+                                    Add Competitor
+                                </button>
+                                <button type="button" class="btn btn-outline" onclick="skipToAnalysis()" id="skip-btn" style="display: none;">
+                                    Skip to Analysis
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="competitors-list-container">
+                        <h3>Added Competitors</h3>
+                        <div class="competitors-list" id="competitors-list">
+                            <div class="empty-state">
+                                <i class="fas fa-users"></i>
+                                <p>No competitors added yet</p>
+                            </div>
+                        </div>
+                        
+                        <div class="analysis-actions hidden" id="analysis-actions">
+                            <button class="btn btn-primary btn-large" onclick="runAnalysis()">
+                                <i class="fas fa-chart-line"></i>
+                                Analyze Competitors
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 3: Results -->
+            <section class="section hidden" id="results-section">
+                <div class="section-header">
+                    <span class="step-number">3</span>
+                    <h2>Analysis Results</h2>
+                    <div class="export-actions">
+                        <button class="btn btn-outline" onclick="exportToJSON()">
+                            <i class="fas fa-download"></i>
+                            Export JSON
+                        </button>
+                        <button class="btn btn-outline" onclick="exportToCSV()">
+                            <i class="fas fa-file-csv"></i>
+                            Export CSV
+                        </button>
+                    </div>
+                </div>
+
+                <div class="results-container" id="results-container">
+                    <!-- Results will be populated by JavaScript -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 SERP Analyzer. Built for competitive SEO analysis.</p>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay hidden" id="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Analyzing competitors...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
